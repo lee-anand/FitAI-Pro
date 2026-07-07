@@ -7,6 +7,7 @@ import ChallengeCard from "./ChallengeCard";
 import AIRecommendation from "./AIRecommendation";
 import CommunityPreview from "../CommunityPreview";
 
+
 export default function Dashboard() {
   return (
     <div className="space-y-8">

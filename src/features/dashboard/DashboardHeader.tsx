@@ -1,33 +1,40 @@
-import { dashboardData } from "../../mock/dashboard";
+import { useUser } from "../../context/UserContext";
 
 export default function DashboardHeader() {
-  const hour = new Date().getHours();
+  const { profile } = useUser();
 
-  const greeting =
-    hour < 12
-      ? "Good Morning"
-      : hour < 17
-      ? "Good Afternoon"
-      : "Good Evening";
+  const firstName =
+    profile?.full_name?.trim().split(" ")[0] || "Athlete";
 
   return (
-    <div className="mb-8">
-      <p className="text-zinc-400 text-lg">
-        {greeting}
-      </p>
+    <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-500">
+          FitAI Pro
+        </p>
 
-      <h1 className="mt-2 text-5xl font-bold">
-        Welcome Back,
-        <span className="text-green-500">
-          {" "}
-          {dashboardData.user.name}
-        </span>{" "}
-        👋
-      </h1>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Welcome back, {firstName}
+        </h1>
 
-      <p className="mt-4 text-zinc-500">
-        Ready to crush today's workout?
-      </p>
-    </div>
+        <p className="mt-2 text-zinc-400">
+          Your goal is{" "}
+          <span className="font-medium text-zinc-200">
+            {profile?.goal || "Stay Fit"}
+          </span>
+          . Keep building consistency.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 px-5 py-3">
+        <p className="text-xs uppercase tracking-wider text-zinc-500">
+          Activity Level
+        </p>
+
+        <p className="mt-1 font-semibold text-white">
+          {profile?.activity_level || "Not Set"}
+        </p>
+      </div>
+    </header>
   );
 }
