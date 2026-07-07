@@ -1,20 +1,22 @@
 import { supabase } from "../lib/supabase";
-import { Profile } from "../types/profile";
+import type { Profile } from "../types/profile";
 
 export async function getProfile(userId: string) {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
-    .single();
+    .maybeSingle();
 
   return { data, error };
 }
 
-export async function createProfile(profile: Profile) {
+export async function saveProfile(profile: Profile) {
   const { data, error } = await supabase
     .from("profiles")
-    .insert(profile)
+    .upsert(profile, {
+      onConflict: "id",
+    })
     .select()
     .single();
 
@@ -33,14 +35,4 @@ export async function updateProfile(
     .single();
 
   return { data, error };
-}
-
-export async function saveProfile(profile: Profile) {
-  const existing = await getProfile(profile.id);
-
-  if (existing.data) {
-    return await updateProfile(profile.id, profile);
-  }
-
-  return await createProfile(profile);
 }
