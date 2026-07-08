@@ -18,6 +18,9 @@ import ProfilePage from "./features/profile/ProfilePage";
 import Dashboard from "./features/dashboard/components/Dashboard";
 import WorkoutLibrary from "./features/workout/WorkoutLibrary";
 import ExerciseDetails from "./features/workout/ExerciseDetails";
+import WorkoutSession from "./features/workout/WorkoutSession";
+import WorkoutHistory from "./features/workout/WorkoutHistory";
+import Analytics from "./features/analytics/Analytics";
 
 const ComingSoonPage = ({ title, description }: { title: string; description: string }) => (
   <div className="flex flex-col items-center justify-center min-h-screen">
@@ -188,6 +191,20 @@ export default function App() {
         path="/profile"
         element={protectedPage(<ProfilePage />)}
       />
+      <Route
+  path="/analytics"
+  element={
+    !user ? (
+      <Navigate to="/login" replace />
+    ) : !profile ? (
+      <Navigate to="/profile-setup" replace />
+    ) : (
+      <AppLayout>
+        <Analytics />
+      </AppLayout>
+    )
+  }
+/>
 
       {/* WORKOUT */}
 
@@ -198,6 +215,24 @@ export default function App() {
 <Route
   path="/workout/:exerciseId"
   element={protectedPage(<ExerciseDetails />)}
+/>
+<Route
+  path="/workout/:exerciseId/session"
+  element={protectedPage(<WorkoutSession />)}
+/>
+<Route
+  path="/history"
+  element={
+    !user ? (
+      <Navigate to="/login" replace />
+    ) : !profile ? (
+      <Navigate to="/profile-setup" replace />
+    ) : (
+      <AppLayout>
+        <WorkoutHistory />
+      </AppLayout>
+    )
+  }
 />
 
       {/* NUTRITION */}

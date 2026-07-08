@@ -68,6 +68,30 @@ export const exercises: Exercise[] = [
     ],
   },
   {
+  id: "bicep-curl",
+  name: "Bicep Curl",
+  category: "Upper Body",
+  targetMuscles: ["Biceps", "Forearms"],
+  difficulty: "Beginner",
+  caloriesPerMinute: 5,
+  aiCompatible: true,
+  description:
+    "An upper-body exercise that strengthens the biceps by repeatedly flexing and extending the elbow joint.",
+  instructions: [
+    "Stand upright and keep your upper arm close to your torso.",
+    "Start with your arm almost fully extended.",
+    "Curl your forearm upward by bending your elbow.",
+    "Bring your wrist toward your shoulder without moving your upper arm excessively.",
+    "Lower your arm under control until it is nearly straight again.",
+  ],
+  commonMistakes: [
+    "Swinging the body to lift the arm.",
+    "Moving the elbow forward excessively.",
+    "Performing incomplete repetitions.",
+    "Lowering the arm too quickly.",
+  ],
+},
+  {
     id: "bodyweight-squat",
     name: "Bodyweight Squat",
     category: "Lower Body",

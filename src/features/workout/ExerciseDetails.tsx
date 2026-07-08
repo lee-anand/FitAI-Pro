@@ -1,4 +1,11 @@
-import { ArrowLeft, Bot, Flame, Target, TriangleAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  Bot,
+  Flame,
+  Target,
+  TriangleAlert,
+} from "lucide-react";
+
 import { useNavigate, useParams } from "react-router-dom";
 
 import { exercises } from "./data/exercises";
@@ -31,14 +38,19 @@ export default function ExerciseDetails() {
 
   return (
     <main className="space-y-8">
+      {/* BACK BUTTON */}
+
       <button
         type="button"
         onClick={() => navigate("/workout")}
         className="flex items-center gap-2 text-zinc-400 transition hover:text-white"
       >
         <ArrowLeft size={18} />
+
         Back to Workout Library
       </button>
+
+      {/* EXERCISE HEADER */}
 
       <section className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 sm:p-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
@@ -55,6 +67,7 @@ export default function ExerciseDetails() {
               {exercise.aiCompatible && (
                 <span className="flex items-center gap-1 rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500">
                   <Bot size={14} />
+
                   AI Tracking Supported
                 </span>
               )}
@@ -69,17 +82,25 @@ export default function ExerciseDetails() {
             </p>
           </div>
 
+          {/* START AI WORKOUT */}
+
           {exercise.aiCompatible && (
             <button
               type="button"
+              onClick={() =>
+                navigate(`/workout/${exercise.id}/session`)
+              }
               className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-green-500 px-6 py-3 font-semibold text-black transition hover:bg-green-400"
             >
               <Bot size={19} />
+
               Start AI Workout
             </button>
           )}
         </div>
       </section>
+
+      {/* EXERCISE INFORMATION */}
 
       <section className="grid gap-5 md:grid-cols-3">
         <InfoCard
@@ -97,37 +118,52 @@ export default function ExerciseDetails() {
         <InfoCard
           icon={<Bot size={20} />}
           title="AI Tracking"
-          value={exercise.aiCompatible ? "Supported" : "Not Supported"}
+          value={
+            exercise.aiCompatible
+              ? "Supported"
+              : "Not Supported"
+          }
         />
       </section>
 
+      {/* INSTRUCTIONS + COMMON MISTAKES */}
+
       <section className="grid gap-6 xl:grid-cols-2">
+        {/* INSTRUCTIONS */}
+
         <article className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-white">
             How to Perform
           </h2>
 
           <ol className="mt-6 space-y-4">
-            {exercise.instructions.map((instruction, index) => (
-              <li
-                key={instruction}
-                className="flex gap-4 rounded-2xl bg-zinc-950 p-4"
-              >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500 font-bold text-black">
-                  {index + 1}
-                </span>
+            {exercise.instructions.map(
+              (instruction, index) => (
+                <li
+                  key={instruction}
+                  className="flex gap-4 rounded-2xl bg-zinc-950 p-4"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500 font-bold text-black">
+                    {index + 1}
+                  </span>
 
-                <p className="pt-1 leading-6 text-zinc-300">
-                  {instruction}
-                </p>
-              </li>
-            ))}
+                  <p className="pt-1 leading-6 text-zinc-300">
+                    {instruction}
+                  </p>
+                </li>
+              )
+            )}
           </ol>
         </article>
 
+        {/* COMMON MISTAKES */}
+
         <article className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 sm:p-8">
           <div className="flex items-center gap-3">
-            <TriangleAlert className="text-yellow-500" size={24} />
+            <TriangleAlert
+              className="text-yellow-500"
+              size={24}
+            />
 
             <h2 className="text-2xl font-bold text-white">
               Common Mistakes
@@ -165,9 +201,13 @@ function InfoCard({
         {icon}
       </div>
 
-      <p className="mt-4 text-sm text-zinc-500">{title}</p>
+      <p className="mt-4 text-sm text-zinc-500">
+        {title}
+      </p>
 
-      <p className="mt-2 font-semibold text-white">{value}</p>
+      <p className="mt-2 font-semibold text-white">
+        {value}
+      </p>
     </article>
   );
 }

@@ -5,16 +5,24 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function AppLayout({ children }: Props) {
+export default function AppLayout({
+  children,
+}: Props) {
   return (
-    <div className="flex h-screen bg-zinc-950 text-white">
+    <div className="flex h-screen w-full overflow-hidden bg-zinc-950 text-white">
       <Sidebar />
 
-      <div className="flex flex-1 flex-col overflow-hidden">
+      {/* MAIN APP AREA */}
+
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <TopNavbar />
 
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
+        {/* SCROLLABLE PAGE CONTENT */}
+
+        <main className="min-w-0 flex-1 overflow-x-hidden overflow-y-auto">
+          <div className="mx-auto w-full min-w-0 max-w-[1600px] p-4 sm:p-6">
+            {children}
+          </div>
         </main>
       </div>
     </div>
